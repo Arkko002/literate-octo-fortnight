@@ -20,5 +20,9 @@ services:
             - '../src/Entity/'
             - '../src/Kernel.php'
 
+    League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface:
+        class: App\Repository\AccessTokenRepository
+        decorates: 'League\Bundle\OAuth2ServerBundle\Repository\AccessTokenRepository'
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

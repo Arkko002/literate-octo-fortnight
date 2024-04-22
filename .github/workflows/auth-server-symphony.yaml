@@ -3,7 +3,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: Auth Server PHP/Symphony
+name: Auth Server Build and Test
 
 on:
   push:

@@ -7,13 +7,18 @@ name: Symfony
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "master", "dev" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "master",  "dev" ]
+
 
 permissions:
   contents: read
-
+  
+defaults:
+    run:
+      working-directory: AuthServer
+      
 jobs:
   symfony-tests:
     runs-on: ubuntu-latest

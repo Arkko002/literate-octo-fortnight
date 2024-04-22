@@ -1,0 +1,11 @@
+syntax = "proto3";
+
+// TODO: protobuf messages shared between projects
+
+service Rating {
+  rpc GetRating(GetRatingRequest) returns (GetRatingResponse) {}
+}
+
+message GetRatingRequest { string game_id = 1; }
+
+message GetRatingResponse { string rating = 1; }

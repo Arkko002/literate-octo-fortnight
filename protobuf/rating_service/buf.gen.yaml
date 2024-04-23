@@ -5,10 +5,12 @@ managed:
     default: github.com/bufbuild/buf-tour/gen
 plugins:
   - plugin: buf.build/bufbuild/es:v1.8.0
-    out: gen
+    opt: target=ts
+    out: src/ts
   - plugin: buf.build/connectrpc/es:v1.4.0
-    out: gen
+    opt: target=ts
+    out: src/ts
   - plugin: buf.build/grpc/php:v1.62.2
-    out: gen
+    out: src/php
   - plugin: buf.build/protocolbuffers/php
-    out: gen
+    out: src/php

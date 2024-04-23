@@ -2,6 +2,5 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {
-  public getRating(gameId: number): string {
-  }
+  public getRating(gameId: number): string {}
 }

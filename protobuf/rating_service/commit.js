@@ -11,10 +11,9 @@ async function branch() {
   return stdout;
 }
 
-async function bumpVersion() {
-  const npmPackageCwd = "./src/ts/";
+async function bumpVersion(gitMessage) {
   const currentBranch = await branch();
-  const version = currentBranch.split("/").pop();
+  const version = currentBranch.split("/").pop().trim();
 
   spawn("git", ["commit", "-m", gitMessage.trim()], {
     stdio: "inherit",
@@ -23,11 +22,17 @@ async function bumpVersion() {
     stdio: "inherit",
   });
 
-  const { stdout, stderr } = spawn(`npm version from-git`, {
-    cwd: npmPackageCwd,
-  });
+  const npmPackageCwd = "src/ts";
+  const { stdout, stderr } = spawn(
+    "npm",
+    ["version", `${version}`, "--no-git-tag-version"],
+    {
+      cwd: npmPackageCwd,
+      stdio: "inherit",
+    },
+  );
   if (stderr) throw stderr;
-  console.log(`NPM Version: ${stdout.trim()}`);
+  console.log(`NPM Version: ${stdout}`);
 
   spawn("git", ["status"], { stdio: "inherit" });
 
@@ -97,11 +102,10 @@ const run = async () => {
     addProtobufFilesToStaging();
     generateCode();
     addGeneratedFilesToStaging();
-    await bumpVersion();
+    await bumpVersion(gitMessage);
   } catch (err) {
     console.log("Something went wrong:");
-    console.error(JSON.stringify(err));
-    console.error('\nPlease use this format: \nnode commit "Commit message"');
+    console.error(err);
   }
 };
 

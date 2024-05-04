@@ -80,3 +80,83 @@ export class GetRatingResponse extends Message<GetRatingResponse> {
   }
 }
 
+/**
+ * @generated from message SetRatingRequest
+ */
+export class SetRatingRequest extends Message<SetRatingRequest> {
+  /**
+   * @generated from field: string game_id = 1;
+   */
+  gameId = "";
+
+  /**
+   * @generated from field: string rating = 2;
+   */
+  rating = "";
+
+  constructor(data?: PartialMessage<SetRatingRequest>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "SetRatingRequest";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "game_id", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "rating", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetRatingRequest {
+    return new SetRatingRequest().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetRatingRequest {
+    return new SetRatingRequest().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetRatingRequest {
+    return new SetRatingRequest().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetRatingRequest | PlainMessage<SetRatingRequest> | undefined, b: SetRatingRequest | PlainMessage<SetRatingRequest> | undefined): boolean {
+    return proto3.util.equals(SetRatingRequest, a, b);
+  }
+}
+
+/**
+ * @generated from message SetRatingResponse
+ */
+export class SetRatingResponse extends Message<SetRatingResponse> {
+  /**
+   * @generated from field: string status = 1;
+   */
+  status = "";
+
+  constructor(data?: PartialMessage<SetRatingResponse>) {
+    super();
+    proto3.util.initPartial(data, this);
+  }
+
+  static readonly runtime: typeof proto3 = proto3;
+  static readonly typeName = "SetRatingResponse";
+  static readonly fields: FieldList = proto3.util.newFieldList(() => [
+    { no: 1, name: "status", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+  ]);
+
+  static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): SetRatingResponse {
+    return new SetRatingResponse().fromBinary(bytes, options);
+  }
+
+  static fromJson(jsonValue: JsonValue, options?: Partial<JsonReadOptions>): SetRatingResponse {
+    return new SetRatingResponse().fromJson(jsonValue, options);
+  }
+
+  static fromJsonString(jsonString: string, options?: Partial<JsonReadOptions>): SetRatingResponse {
+    return new SetRatingResponse().fromJsonString(jsonString, options);
+  }
+
+  static equals(a: SetRatingResponse | PlainMessage<SetRatingResponse> | undefined, b: SetRatingResponse | PlainMessage<SetRatingResponse> | undefined): boolean {
+    return proto3.util.equals(SetRatingResponse, a, b);
+  }
+}
+

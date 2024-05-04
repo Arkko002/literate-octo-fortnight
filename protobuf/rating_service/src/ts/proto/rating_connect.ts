@@ -3,22 +3,31 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import { GetRatingRequest, GetRatingResponse } from "./rating_pb.js";
+import { GetRatingRequest, GetRatingResponse, SetRatingRequest, SetRatingResponse } from "./rating_pb.js";
 import { MethodKind } from "@bufbuild/protobuf";
 
 /**
- * @generated from service Rating
+ * @generated from service RatingService
  */
-export const Rating = {
-  typeName: "Rating",
+export const RatingService = {
+  typeName: "RatingService",
   methods: {
     /**
-     * @generated from rpc Rating.GetRating
+     * @generated from rpc RatingService.GetRating
      */
     getRating: {
       name: "GetRating",
       I: GetRatingRequest,
       O: GetRatingResponse,
+      kind: MethodKind.Unary,
+    },
+    /**
+     * @generated from rpc RatingService.SetRating
+     */
+    setRating: {
+      name: "SetRating",
+      I: SetRatingRequest,
+      O: SetRatingResponse,
       kind: MethodKind.Unary,
     },
   }

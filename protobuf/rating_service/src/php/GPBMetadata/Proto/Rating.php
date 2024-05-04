@@ -15,7 +15,7 @@ class Rating
           return;
         }
         $pool->internalAddGeneratedFile(
-            "\x0A\xEF\x01\x0A\x12proto/rating.proto\"+\x0A\x10GetRatingRequest\x12\x17\x0A\x07game_id\x18\x01 \x01(\x09R\x06gameId\"+\x0A\x11GetRatingResponse\x12\x16\x0A\x06rating\x18\x01 \x01(\x09R\x06rating2>\x0A\x06Rating\x124\x0A\x09GetRating\x12\x11.GetRatingRequest\x1A\x12.GetRatingResponse\"\x00B7B\x0BRatingProtoP\x01Z&github.com/bufbuild/buf-tour/gen/protob\x06proto3"
+            "\x0A\x9E\x03\x0A\x12proto/rating.proto\"+\x0A\x10GetRatingRequest\x12\x17\x0A\x07game_id\x18\x01 \x01(\x09R\x06gameId\"+\x0A\x11GetRatingResponse\x12\x16\x0A\x06rating\x18\x01 \x01(\x09R\x06rating\"C\x0A\x10SetRatingRequest\x12\x17\x0A\x07game_id\x18\x01 \x01(\x09R\x06gameId\x12\x16\x0A\x06rating\x18\x02 \x01(\x09R\x06rating\"+\x0A\x11SetRatingResponse\x12\x16\x0A\x06status\x18\x01 \x01(\x09R\x06status2{\x0A\x0DRatingService\x124\x0A\x09GetRating\x12\x11.GetRatingRequest\x1A\x12.GetRatingResponse\"\x00\x124\x0A\x09SetRating\x12\x11.SetRatingRequest\x1A\x12.SetRatingResponse\"\x00B7B\x0BRatingProtoP\x01Z&github.com/bufbuild/buf-tour/gen/protob\x06proto3"
         , true);
 
         static::$is_initialized = true;

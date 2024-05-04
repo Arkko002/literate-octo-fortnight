@@ -1,0 +1,16 @@
+{
+  "name": "arkko/protobuf-php-lib",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Arkko\\ProtobufPhpLib\\": "./"
+    }
+  },
+  "authors": [
+    {
+      "name": "Arkko",
+      "email": "arkko002@gmail.com"
+    }
+  ],
+  "require": {}
+}

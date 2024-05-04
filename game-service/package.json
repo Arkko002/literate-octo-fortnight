@@ -25,7 +25,8 @@
     "@nestjs/core": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "rxjs": "^7.8.1",
+    "@arkko/protobuf-ts-lib": "file:../protobuf/rating_service/src/ts/protobuf-ts-lib-0.0.1.tgz"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

@@ -4,36 +4,51 @@
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 const spawn = require("child_process").spawnSync;
-const fs = require("fs");
 
-async function bumpNpmVersion(versionType) {
-  const npmPackageCwd = "./src/ts/";
-
-  const { stdout, stderr } = spawn(
-    `npm version ${versionType} --no-git-tag-version`,
-    { cwd: npmPackageCwd },
-  );
+async function branch() {
+  const { stdout, stderr } = await exec(`git rev-parse --abbrev-ref HEAD`);
   if (stderr) throw stderr;
-  const npmVersion = stdout;
+  return stdout;
+}
 
-  spawn("git", ["add", "package.json", "package-lock.json"], {
-    stdio: "inherit",
-    cwd: npmPackageCwd,
-  });
+async function bumpVersion() {
+  const npmPackageCwd = "./src/ts/";
+  const currentBranch = await branch();
+  const version = currentBranch.split("/").pop();
+
   spawn("git", ["commit", "-m", gitMessage.trim()], {
     stdio: "inherit",
-    cwd: npmPackageCwd,
   });
-  spawn("git", ["tag", npmVersion.trim()], {
+  spawn("git", ["tag", "-a", version], {
     stdio: "inherit",
+  });
+
+  const { stdout, stderr } = spawn(`npm version from-git`, {
     cwd: npmPackageCwd,
   });
-  spawn("git", ["status"], { stdio: "inherit", cwd: npmPackageCwd });
+  if (stderr) throw stderr;
+  console.log(`NPM Version: ${stdout.trim()}`);
 
-  const currentBranch = await branch();
+  spawn("git", ["status"], { stdio: "inherit" });
+
   spawn("git", ["push", "origin", currentBranch.trim()], {
     stdio: "inherit",
+  });
+  spawn("git", ["push", "origin", version], {
+    stdio: "inherit",
+  });
+}
+
+function addGeneratedFilesToStaging() {
+  const npmPackageCwd = "./src/ts/";
+  const phpPackageCwd = "./src/php/";
+  spawn("git", ["add", "./"], {
+    stdio: "inherit",
     cwd: npmPackageCwd,
+  });
+  spawn("git", ["add", "./"], {
+    stdio: "inherit",
+    cwd: phpPackageCwd,
   });
 }
 
@@ -59,11 +74,10 @@ async function bumpNpmVersion(versionType) {
 //     stdio: "inherit",
 //   });
 // }
+
 async function addProtobufFilesToStaging() {
-  const protoFiles = fs
-    .readdirSync("./proto")
-    .filter((file) => file.endsWith(".proto"));
-  spawn("git", ["add", ...protoFiles], { stdio: "inherit" });
+  const protoFilesCwd = "./proto/";
+  spawn("git", ["add", "./"], { stdio: "inherit", cwd: protoFilesCwd });
 }
 
 function generateCode() {
@@ -74,36 +88,20 @@ function generateCode() {
   });
 }
 
-async function branch() {
-  const { stdout, stderr } = await exec(`git rev-parse --abbrev-ref HEAD`);
-  if (stderr) throw stderr;
-  return stdout;
-}
-
 const run = async () => {
   try {
-    const versionType = process.argv[2];
-    const gitMessage = process.argv[3];
-
-    if (
-      versionType !== "patch" &&
-      versionType !== "minor" &&
-      versionType !== "major"
-    )
-      throw new Error("You need to specify npm version! [patch|minor|major]");
+    const gitMessage = process.argv[2];
     if (!gitMessage)
       throw new Error("You need to provide a git commit message!");
 
     addProtobufFilesToStaging();
     generateCode();
-    const npmVersion = await bumpNpmVersion(versionType);
-    console.log(`NpmVersion: ${npmVersion}`);
+    addGeneratedFilesToStaging();
+    await bumpVersion();
   } catch (err) {
     console.log("Something went wrong:");
     console.error(JSON.stringify(err));
-    console.error(
-      '\nPlease use this format: \nnpm run commit [patch|minor|major] "Commit message"',
-    );
+    console.error('\nPlease use this format: \nnode commit "Commit message"');
   }
 };
 
